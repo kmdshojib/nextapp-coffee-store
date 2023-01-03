@@ -1,12 +1,14 @@
 import Head from 'next/head'
 import { Inter } from '@next/font/google'
 import Bannner from '../components/Banner/Bannner'
+import Image from 'next/image'
 
+import heroImage from "../public/static/hero-image.png"
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
-  const handleBannerClick = () =>{
+  const handleBannerClick = () => {
 
   }
   return (
@@ -19,7 +21,10 @@ export default function Home() {
       </Head>
 
       <main>
-        <Bannner handleOnClick={handleBannerClick} buttonText="Find Stores"/>
+        <Bannner handleOnClick={handleBannerClick} buttonText="Find Stores" />
+        <div className='absolute top-10 left-40'>
+          <Image src={heroImage} width={900} height={400} />
+        </div>
       </main>
     </>
   )
