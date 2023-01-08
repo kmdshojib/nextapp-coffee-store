@@ -1,16 +1,17 @@
 import Head from 'next/head'
-import { Inter } from '@next/font/google'
 import Bannner from '../components/Banner/Bannner'
 import Image from 'next/image'
 
 import heroImage from "../public/static/hero-image.png"
+import Card from '../components/Card/card'
 
-const inter = Inter({ subsets: ['latin'] })
+import cofffeeStores from "../data/coffee-stores.json"
 
 export default function Home() {
   const handleBannerClick = () => {
 
   }
+  console.log(cofffeeStores)
   return (
     <>
       <Head>
@@ -20,10 +21,22 @@ export default function Home() {
         <link rel="icon" href="https://www.pngkey.com/png/full/453-4536090_coffe-cup-png.png" />
       </Head>
 
-      <main>
+      <main className='mb-10'>
         <Bannner handleOnClick={handleBannerClick} buttonText="Find Stores" />
         <div className='absolute top-10 left-40'>
           <Image src={heroImage} width={900} height={400} />
+        </div>
+        <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ml-10">
+          {
+            cofffeeStores.map(item => (
+              <Card
+                title={item.name}
+                imgUrl={item.imgUrl}
+                href={`coffee-store/${item.id}`}
+              />
+            ))
+          }
+
         </div>
       </main>
     </>
