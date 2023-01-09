@@ -5,13 +5,23 @@ import Image from 'next/image'
 import heroImage from "../public/static/hero-image.png"
 import Card from '../components/Card/card'
 
-import cofffeeStores from "../data/coffee-stores.json"
+import cofffeeStoresData from "../data/coffee-stores.json"
 
-export default function Home() {
+
+export async function getStaticProps(context) {
+
+  return {
+    props: {
+      cofffeeStores: cofffeeStoresData
+    }
+  }
+}
+
+export default function Home({ cofffeeStores }) {
   const handleBannerClick = () => {
 
   }
-  console.log(cofffeeStores)
+
   return (
     <>
       <Head>
@@ -26,18 +36,24 @@ export default function Home() {
         <div className='absolute top-10 left-40'>
           <Image src={heroImage} width={900} height={400} />
         </div>
-        <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ml-10">
-          {
-            cofffeeStores.map(item => (
-              <Card
-                title={item.name}
-                imgUrl={item.imgUrl}
-                href={`coffee-store/${item.id}`}
-              />
-            ))
-          }
-
-        </div>
+        {
+          cofffeeStores &&
+          <div className='flex flex-col'>
+            <h2 className='ml-10 text-xl mb-5'>Jedda Coffee Stores</h2>
+            <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ml-10">
+              {
+                cofffeeStores.map(item => (
+                  <Card
+                    key={item.id}
+                    title={item.name}
+                    imgUrl={item.imgUrl}
+                    href={`coffee-store/${item.id}`}
+                  />
+                ))
+              }
+            </div>
+          </div>
+        }
       </main>
     </>
   )
