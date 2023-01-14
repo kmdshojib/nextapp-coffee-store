@@ -6,6 +6,10 @@ import { useRouter } from "next/router"
 import cofffeeStoresData from "../../data/coffee-stores.json"
 import style from "../../styles/cofee-store.module.css"
 
+import nearMe from "../../public/icons/nearMe.svg"
+import places from "../../public/icons/places.svg"
+import star from "../../public/icons/star.svg"
+
 export const getStaticProps = ({ params }) => {
   // const params = staticprops.params
   return {
@@ -29,7 +33,7 @@ export const getStaticPaths = () => {
     fallback: true,
   }
 }
-
+const handleUpVoteButton = () => {}
 const CoffeeSotre = (props) => {
   const router = useRouter()
 
@@ -52,14 +56,26 @@ const CoffeeSotre = (props) => {
           <div className={style.backToHomeLink}>
             <Link href="/">Back Home</Link>
           </div>
-          <div className={style.nameWrapper}>
-          <p>{name}</p>
+          <div className={` ${style.nameWrapper}`}>
+            <p>{name}</p>
           </div>
           <Image src={imgUrl} alt={name} width={600} height={300} className={style.storeImg} />
         </div>
-        <div className={style.col2}>
-          <p>{address}</p>
-          <p>{neighbourhood}</p>
+        <div className={`glass ${style.col2}`}>
+          <div className={style.iconWrapper}>
+            <Image src={nearMe} width="24" height="24"/>
+            <p className={style.text}>{address}</p>
+          </div>
+          <div className={style.iconWrapper}>
+            <Image src={places} width="24" height="24"/>
+            <p className={style.text}>{neighbourhood}</p>
+          </div>
+          <div className={style.iconWrapper}>
+            <Image src={star} width="24" height="24"/>
+            <p className={style.text}>1</p>
+          </div>
+
+          <button className={style.upvoteButton} onClick={handleUpVoteButton}>Up Vote</button>
         </div>
       </div>
 
