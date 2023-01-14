@@ -1,8 +1,10 @@
 import Head from "next/head"
+import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/router"
 
 import cofffeeStoresData from "../../data/coffee-stores.json"
+import style from "../../styles/cofee-store.module.css"
 
 export const getStaticProps = ({ params }) => {
   // const params = staticprops.params
@@ -18,7 +20,7 @@ export const getStaticProps = ({ params }) => {
 
 export const getStaticPaths = () => {
   const paths = cofffeeStoresData.map(store => {
-    return{
+    return {
       params: { id: store.id.toString() }
     }
   })
@@ -41,14 +43,26 @@ const CoffeeSotre = (props) => {
   console.log(name)
 
   return (
-    <div>
+    <div className={style.layout}>
       <Head>
         <title>{name}</title>
       </Head>
-      <Link href="/">Back Home</Link>
-      <p>{name}</p>
-      <p>{address}</p>
-      <p>{neighbourhood}</p>
+      <div className={style.container}>
+        <div className={style.col1}>
+          <div className={style.backToHomeLink}>
+            <Link href="/">Back Home</Link>
+          </div>
+          <div className={style.nameWrapper}>
+          <p>{name}</p>
+          </div>
+          <Image src={imgUrl} alt={name} width={600} height={300} className={style.storeImg} />
+        </div>
+        <div className={style.col2}>
+          <p>{address}</p>
+          <p>{neighbourhood}</p>
+        </div>
+      </div>
+
     </div>
   )
 }
