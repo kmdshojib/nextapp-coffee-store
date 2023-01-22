@@ -83,6 +83,7 @@
     height: auto;
     vertical-align: middle;
     border-style: none;
+    object-fit: cover !important;
 }
 
 .col2 {
