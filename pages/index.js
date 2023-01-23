@@ -30,8 +30,7 @@ export async function getStaticProps(context) {
 }
 
 export default function Home({ cofffeeStores }) {
-  console.log(fetchData)
- console.log(cofffeeStores.categories)
+  console.log(cofffeeStores.categories)
   const handleBannerClick = () => {
 
   }
@@ -57,12 +56,12 @@ export default function Home({ cofffeeStores }) {
             <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ml-10">
               {
                 cofffeeStores.map(item => {
-                  {/* console.log(item.categories.icon) */}
-                   return <Card
+                  {/* console.log(item.categories.icon) */ }
+                  return <Card
                     key={item.fsq_id}
                     title={item.name}
                     imgUrl={item.icon}
-                    href={`coffee-store/${item.id}`}
+                    href={`coffee-store/${item.fsq_id}`}
                   />
                 })
               }

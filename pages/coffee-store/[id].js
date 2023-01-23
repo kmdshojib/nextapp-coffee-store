@@ -10,13 +10,25 @@ import nearMe from "../../public/icons/nearMe.svg"
 import places from "../../public/icons/places.svg"
 import star from "../../public/icons/star.svg"
 
-export const getStaticProps = ({ params }) => {
+export const getStaticProps = async ({ params }) => {
   // const params = staticprops.params
+  const options = {
+    method: 'GET',
+    headers: {
+      accept: 'application/json',
+      Authorization: process.env.PLACE_API
+    }
+  };
+
+  const res = await fetch('https://api.foursquare.com/v3/places/search', options)
+    .then(response => response.json())
+    .then(data => data.results)
   return {
+
     props: {
-      cofffeeStores: cofffeeStoresData.find(store => {
+      cofffeeStores: res.find(store => {
         console.log(store)
-        return store.id.toString() === params.id
+        return store.fsq_id.toString() === params.id
       })
     }
   }
@@ -33,7 +45,7 @@ export const getStaticPaths = () => {
     fallback: true,
   }
 }
-const handleUpVoteButton = () => {}
+const handleUpVoteButton = () => { }
 const CoffeeSotre = (props) => {
   const router = useRouter()
 
@@ -63,15 +75,15 @@ const CoffeeSotre = (props) => {
         </div>
         <div className={`glass ${style.col2}`}>
           <div className={style.iconWrapper}>
-            <Image src={nearMe} width="24" height="24"/>
+            <Image src={nearMe} width="24" height="24" />
             <p className={style.text}>{address}</p>
           </div>
           <div className={style.iconWrapper}>
-            <Image src={places} width="24" height="24"/>
+            <Image src={places} width="24" height="24" />
             <p className={style.text}>{neighbourhood}</p>
           </div>
           <div className={style.iconWrapper}>
-            <Image src={star} width="24" height="24"/>
+            <Image src={star} width="24" height="24" />
             <p className={style.text}>1</p>
           </div>
 
