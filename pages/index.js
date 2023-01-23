@@ -4,20 +4,34 @@ import Image from 'next/image'
 
 import heroImage from "../public/static/hero-image.png"
 import Card from '../components/Card/card'
-
-import cofffeeStoresData from "../data/coffee-stores.json"
+import { fetchData } from '../lib/coffeestores'
 
 
 export async function getStaticProps(context) {
+  const options = {
+    method: 'GET',
+    headers: {
+      accept: 'application/json',
+      Authorization: process.env.PLACE_API
+    }
+  };
+
+  const res = await fetch('https://api.foursquare.com/v3/places/search', options)
+    .then(response => response.json())
+    .then(data => data.results)
+  console.log(res)
+  // const data = await res.results
 
   return {
     props: {
-      cofffeeStores: cofffeeStoresData
+      cofffeeStores: res,
     }
   }
 }
 
 export default function Home({ cofffeeStores }) {
+  console.log(fetchData)
+ console.log(cofffeeStores.categories)
   const handleBannerClick = () => {
 
   }
@@ -42,14 +56,15 @@ export default function Home({ cofffeeStores }) {
             <h2 className='ml-10 text-xl mb-5'>Jedda Coffee Stores</h2>
             <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ml-10">
               {
-                cofffeeStores.map(item => (
-                  <Card
-                    key={item.id}
+                cofffeeStores.map(item => {
+                  {/* console.log(item.categories.icon) */}
+                   return <Card
+                    key={item.fsq_id}
                     title={item.name}
-                    imgUrl={item.imgUrl}
+                    imgUrl={item.icon}
                     href={`coffee-store/${item.id}`}
                   />
-                ))
+                })
               }
             </div>
           </div>
