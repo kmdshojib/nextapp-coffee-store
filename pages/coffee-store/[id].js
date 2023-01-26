@@ -55,15 +55,15 @@ const CoffeeSotre = (props) => {
     return <div>Loading...</div>
   }
   console.log(props)
-  const { name, imgUrl, id, neighbourhood, address } = props.cofffeeStores
-  console.log(name)
+  const { name, imgUrl, id, location } = props.cofffeeStores
+  console.log(props.cofffeeStores)
 
   return (
     <div className={style.layout}>
       <Head>
         <title>{name}</title>
       </Head>
-      <div className={style.container}>
+      <div className={`${style.container}`}>
         <div className={style.col1}>
           <div className={style.backToHomeLink}>
             <Link href="/">Back Home</Link>
@@ -76,11 +76,11 @@ const CoffeeSotre = (props) => {
         <div className={`glass ${style.col2}`}>
           <div className={style.iconWrapper}>
             <Image src={nearMe} width="24" height="24" />
-            <p className={style.text}>{address}</p>
+            <p className={style.text}>{location.address}</p>
           </div>
           <div className={style.iconWrapper}>
             <Image src={places} width="24" height="24" />
-            <p className={style.text}>{neighbourhood}</p>
+            <p className={style.text}>{location.formatted_address}</p>
           </div>
           <div className={style.iconWrapper}>
             <Image src={star} width="24" height="24" />
