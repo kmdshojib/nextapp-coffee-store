@@ -4,7 +4,8 @@ import Image from 'next/image'
 
 import heroImage from "../public/static/hero-image.png"
 import Card from '../components/Card/card'
-import { fetchData } from '../lib/coffeestores'
+// import { fetchData } from '../lib/coffeestores'
+import useLoaction from './../hooks/useLoaction';
 
 
 export async function getStaticProps(context) {
@@ -30,9 +31,11 @@ export async function getStaticProps(context) {
 }
 
 export default function Home({ cofffeeStores }) {
+  const { handleLoaction,latLong,loactionError,isFindingLoaction } = useLoaction()
   console.log(cofffeeStores.categories)
   const handleBannerClick = () => {
-
+    !isFindingLoaction &&  handleLoaction()
+    console.log({latLong,loactionError})
   }
 
   return (
@@ -45,7 +48,7 @@ export default function Home({ cofffeeStores }) {
       </Head>
 
       <main className='mb-10'>
-        <Bannner handleOnClick={handleBannerClick} buttonText="Find Stores" />
+        <Bannner handleOnClick={handleBannerClick} buttonText={isFindingLoaction? "Loacting" : "View Stores"}/>
         <div className='absolute top-10 left-40'>
           <Image src={heroImage} width={900} height={400} />
         </div>
